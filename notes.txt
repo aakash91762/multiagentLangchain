@@ -1,0 +1,140 @@
+Sure. Here is the command cheat sheet from what we used to set up and troubleshoot your Multiagent_Langchain_Agent project.
+1. Navigate to the project
+cd "/Users/aakash-solanki/Desktop/Agentic AI/Multiagent_Langchain_Agent"
+
+2. Using uv for virtual environment
+Create a virtual environment:
+uv venv --python 3.12
+
+Activate it:
+source .venv/bin/activate
+
+Verify the environment:
+which python
+python --version
+
+You want which python to point to:
+.../Multiagent_Langchain_Agent/.venv/bin/python
+
+3. Install dependencies
+If you have requirements.txt:
+uv pip install -r requirements.txt
+
+For individual packages:
+uv pip install streamlit
+
+uv pip install langchain-google-genai
+
+For Groq, if you use it:
+uv pip install langchain-groq
+
+4. Verify installed packages
+Check Streamlit:
+python -m streamlit --version
+
+Check LangChain:
+python -m pip show langchain
+
+Check Gemini:
+python -c "from langchain_google_genai import ChatGoogleGenerativeAI; print('Gemini OK')"
+
+Check Groq:
+python -c "from langchain_groq import ChatGroq; print('Groq OK')"
+
+5. Run Streamlit
+Use:
+python -m streamlit run app.py
+
+Important: Since your Mac was giving:
+zsh: command not found: pip
+
+we used:
+python -m pip
+
+or:
+uv pip
+
+instead of directly using:
+pip
+
+6. Check which Python you're actually using
+This was particularly important because your earlier Streamlit error showed packages coming from:
+/Users/aakash-solanki/Library/Python/3.9/lib/python/site-packages/
+
+Check with:
+which python
+
+and:
+python -c "import sys; print(sys.executable)"
+
+Both should point inside your .venv.
+7. Git commands we used
+When GitHub rejected the push because of the Groq API key:
+Check status:
+git status
+
+Check recent commits:
+git log --oneline --all -5
+
+We identified:
+8bc726e test
+417aad4 chnages
+9fb0e06 chnages
+6e351bc chages
+e069809 grok api key   ← secret
+
+The important lesson was that removing the API key from .gitignore doesn't remove it from Git history.
+8. Git pull issue
+When Git reported divergent branches:
+git pull --no-rebase origin main
+
+Then push:
+git push origin main
+
+9. GitHub secret protection
+GitHub detected the Groq API key:
+GH013: Repository rule violations
+Push cannot contain secrets
+
+We identified that the key existed in an older commit and discussed rewriting the local history.
+For future projects, your .gitignore should contain:
+.env
+.venv/
+__pycache__/
+*.pyc
+
+And your API keys should live only in:
+.env
+
+For example:
+GOOGLE_API_KEY=your_key
+TAVILY_API_KEY=your_key
+WEATHERSTACK_API_KEY=your_key
+
+The most useful commands to remember
+For your current workflow, I'd keep these 8 commands handy:
+
+
+# Activate environment
+source .venv/bin/activate
+
+# Check Python
+which python
+
+# Install dependencies
+uv pip install -r requirements.txt
+
+# Install a package
+uv pip install langchain-google-genai
+
+# Verify package
+python -c "from langchain_google_genai import ChatGoogleGenerativeAI; print('Gemini OK')"
+
+# Run Streamlit
+python -m streamlit run app.py
+
+# Check Git status
+git status
+
+# Check Git history
+git log --oneline --all -5

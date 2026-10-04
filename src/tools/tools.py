@@ -55,6 +55,11 @@ def scrape_url(url: str) -> str:
 
         html = response.text
 
+        html = re.sub(
+        r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]',
+            '',html
+        )
+
         # ──────────────────────────────────────────────────
         # Strategy 1 → trafilatura (BEST for articles/blogs)
         # ──────────────────────────────────────────────────

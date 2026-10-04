@@ -1,10 +1,12 @@
 ## Documentation
 # 1. Create the environment named 'langchainMultiagent'
 python3 -m venv langchainMultiagent
+uv venv langchainMultiagent --python 3.11
 
 # 2. Activate it
 source langchainMultiagent/bin/activate
-
+## 3. Packages
+uv pip install langchain langchain-google-genai langchain-community tavily-python python-dotenv requests beautifulsoup4 readability-lxml trafilatura rich streamlit
 
 # LangChain Multi-Agent Research System
 
